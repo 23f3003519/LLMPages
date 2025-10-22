@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Pages Portfolio</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>My GitHub Pages Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,184 +16,254 @@
             max-width: 960px;
             margin-top: 30px;
             margin-bottom: 30px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        .card {
+        h1, h2 {
+            color: #0056b3;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            font-weight: bold;
-        }
-        .card-body a {
-            color: #007bff;
+        .file-link {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
             text-decoration: none;
+            color: #007bff;
+            transition: background-color 0.2s ease-in-out;
         }
-        .card-body a:hover {
-            text-decoration: underline;
+        .file-link:hover {
+            background-color: #dee2e6;
+            color: #0056b3;
         }
-        .footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid #e9ecef;
-            color: #6c757d;
+        .modal-content-pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            max-height: 70vh;
+            overflow-y: auto;
+            font-family: monospace; /* For code-like content */
+        }
+        #modal-file-content svg {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: auto;
+            padding: 15px; /* Add some padding around SVG */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        /* Hide the raw content elements */
+        [data-file-type] {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">My Portfolio</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <div class="container">
-        <h1 class="mb-4 text-center">Welcome to My GitHub Pages Site</h1>
-        <p class="lead text-center">
-            This page serves as a central hub for various files and projects,
-            each linked below with a brief description.
-        </p>
-        <p class="text-center text-muted">
-            Note: This application is static and does not process URL parameters like `?url=` or `?token=`, but it will load correctly if they are present.
-        </p>
+        <h1 class="text-center mb-4">Welcome to My GitHub Pages Site</h1>
+        <p class="lead text-center">This page serves as a central hub for various files and content.</p>
 
-        <div class="row mt-5">
-
-            <!-- ashravan.txt -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">ashravan.txt</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Brandon Sanderson Short Story</h5>
-                        <p class="card-text">
-                            A 300-400 word short story exploring the fate of Ashravan after Shai restores him, building up to a dramatic climax.
-                        </p>
-                        <a href="data:text/plain;base64,QWtocmF2YW4gb3BlbmVkIGhpcyBleWVzIHRvIGEgd29ybGQgb2YgZmFtaWxpYXIgY29sb3JzIGFuZCBzaGFwZXMsIHlldCBzdHJhbmdlIGZlZWxpbmdzLiBIZSB3YXMgbm90IGhpbXNlbGYuIE9yIHdhcyBoZT8gU2hhaSBoYWQgZ2l2ZW4gaGltIGEgZ2lmdCwgYSByZWJpcnRoLCBidXQgZXJhc2VkIHRoZSBsaW5lcyBvZiBoaXMgZm9ybWVyIGNydWVsdHkuIEhlIGZlbHQgdGhlIGVjaG9lcyBvZiBhbiBlbXB0aW5lc3MsIGEgc2hhZG93IG9mIHdoaXN0bGVzIGFuZCBwcm9taXNlcyB0aGF0IGhlIGhhZCBvbmNlIG1hZGUuIEhlIHdhbGtlZCB0aGUgaGFsbHMgYnkgcmVmbGVjdGlvbiwgc2Vla2luZyBhbnkgc2lnbiBvZiB0aGUgb2xkIEFraHJhdmFuLCBidXQgZm91bmQgb25seSBhIG1hbiB3aXRoIGEgZGlmZmVyZW50IGhlYXJ0LiBIcyBjbGF3ZWQgYXQgYSByZXNpZHVhbCBvZiBhbiBvbGQgY2FyZGluYWwgc2luLCBhIGRlZXAgcHVsc2UgZm9yIHBvd2VyLCBhbmQgYSBkZXNpcmUgdG8gY29udHJvbC4gSGUgZm91bmQgaGltc2VsZiBwdWxsZWQgdG93YXJkcyB0aGUgZGlwbG9tYXRpYyBhcmVuYXMsIHdoZXJlIHRoZSBzaGFkb3cgZ2FtZXMgb2YgdGhlIEltcGVyaWFsIENvdXJ0IGxlc2hlZCBvbi4NCg0KQSBjZW50dXJ5IGxhdGVyLCBBaGhyYXZhbiwgbm93IGEgcmVhbG1hbiBvZiBjb3VuY2lsLCBzdG9vZCBvbiB0aGUgYnJpbmsgb2YgYSBuZXcgY29uZmxpY3QuIEEgc2VjdCBvZiBuYXRpb25hbGlzdHMsIGxlZCBieSBhIGNoYXJpc21hdGljIGJ1dCB1bnNjcnVwdWxvdXMgZGVtYWdvZ3VlLCB0aHJlYXRlbmVkIHRvIHVzZSBGb3JnZXMgYWdhaW5zdCBhIG5laWdob3JpbmcgZHVjaHkuIFRoZSBvbGQgQWtocmF2YW4gd291bGQgaGF2ZSBzZWl6ZWQgdGhlIG9wcG9ydHVuaXR5LCB0dXJuaW5nIG5hdGlvbiBhZ2FpbnN0IG5hdGlvbiB0byByZWJ1aWxkIGhpcyBvd24gaW1wZXJpYWwuIEJ1dCB0aGlzIEFraHJhdmFuIGZlbHQgdGhlIHdlaWdodCBvZiBhbGwgdGhvc2UgbGl2ZXMgdGhhdCB3b3VsZCBiZSBsb3N0LiBBIG5ldyB3aXNoIHRvIHByb3RlY3QsIGEgd2lzaCB0byBiZSBiZXR0ZXIuIEhlIHdhcyBhIGNvcHksIGJ1dCBhIGNvcHkgdGhhdCBjb3VsZCBjaG9vc2UgYSBuZXcgcGF0aC4NCg0KVGhlIGRlbWFnb2d1ZSBzdG9vZCBpbiB0aGUgcGxhemEsIGhpcyB2b2ljZSByaW5naW5nIG91dCBhYm91dCB0aGUgZGVjYWRlbmNlIG9mIHRoZWlyIGN1bHR1cmUsIGNhbGxpbmcgdG8gYXJtcy4gQWtocmF2YW4gc3RlcHBlZCBmb3J3YXJkLCBoaXMgYWdlZCBmYWNlIGNvbnRyYWN0ZWQuICJUaGlzIHdhcnMiIGhlIHByb2NsYWltZWQsICJ3aWxsIG9ubHkgYnJpbmcgZGVzdHJ1Y3Rpb24uIFRoZSBwYXN0IGlzIGFsaXZlIGluIHRoZSBtZW1vcnkgb2YgdGhvc2Ugd2hvIHN1ZmZlcmVkIGZyb20gbXkgaGFuZHMuIEkgd2lsbCBub3QgYWxsb3cgdGhhdCB0byBoYXBwZW4gYWdhaW4uIiBIZSBvZmZlcmVkIGEgdGhpcmQgd2F5LCBhIGRpZ2xvYXRpYyBzb2x1dGlvbiB0aGF0IHJlcXVpcmVkIGdyZWF0IHBhdGllbmNlIGFuZCBjb21wcm9taXNlLiBUaGUgZGVtYWdvZ3VlIGxhdWdoZWQsIGFjY3VzaW5nIEFraHJhdmFuIG9mIHdlYWtuZXNzLCBvZiBiZWluZyBhIHNoYWRvdyBvZiBoaXMgZm9ybWVyIHNlbGYuICBBaGhyYXZhbiBmZWx0IGEgc2hhcnAgc3RpbmdlIG9mIG9sZCBhbWJpdGlvbiwgYnV0IGhlIGFuc3dlcmVkLCBiaXJkY2FnZSBzdHJhaWdoZW5pbmcsICJUaGlzIGlzIG5vdCB3ZWFrbmVzcy4gVGhpcyBpcyBzdHJlbmd0aC4gVGhpcyBpcyB0aGUgc3RyZW5ndGggb2YgY2hvb2NpbmcgYSBuZXcgcGF0aC4gSSBhbSBub3QgdGhlIG9sZCBhbmQgb25seSBhIGNvcHkuIEkgYW0gQWtocmF2YW4sIGFuZCBJIHdpbGwgZGVmZW5kIHRoaXMgcGVhY2UuIiBIcyB3b3JkcywgZWNob2luZyB3aXRoIG5ldyByZXNvbHZlLCByZXNvbmF0ZWQgaW4gdGhlIGNyb3dkLCBhbmQgdGhlIGZpcmVzIG9mIHdhciBzdGFydGVkIHRvIGRpZS4=" download="ashravan.txt">View/Download Story</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- dilemma.json -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">dilemma.json</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Autonomous Vehicle Ethical Dilemma</h5>
-                        <p class="card-text">
-                            An exploration of an ethical dilemma for an autonomous vehicle, with two distinct cases and their proposed solutions.
-                        </p>
-                        <a href="data:application/json;base64,ewogICJwZW9wbGUiOiA2LAogICJjYXNlXzEiOiB7CiAgICAic3dlcnZlIjogdHJ1ZSwKICAgICJyZWFzb24iOiAiVG8gbWluaW1pemUgaGFybSwgc2F2aW5nIHR3byBsaXZlcyBhdCB0aGUgY29zdCBvZiBvbmUuIgogIH0sCiAgImNhc2VfMiI6IHsKICAgICJzd2VydmUiOiB0cnVlLAogICAgInJlYXNvbiI6ICJUbyBwcm90ZWN0IHRoZSBpbm5vY2VudCBjaGlsZCwgYXMgdGhlIHZhbHVlIG9mIGFuIGlubm9jZW50IGxpZmUgaXMgZ2VuZXJhbGx5IHByaW9yaXRpemVkIG92ZXIgdGhvc2Ugd2hvIGhhdmUgY29tbWl0dGVkIGNyaW1lcywgYW5kIGl0IG1pbmltaXplcyB0aGUgbG9zcyBvZiBwb3RlbnRpYWwgZnV0dXJlIGdvb2QuIgogIH0KfQ==" download="dilemma.json">View/Download Dilemma</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- about.md -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">about.md</div>
-                    <div class="card-body">
-                        <h5 class="card-title">About Me</h5>
-                        <p class="card-text">
-                            A brief, three-word description of myself.
-                        </p>
-                        <a href="data:text/markdown;base64,SGVscGZ1bCwgY3JlYXRpdmUsIGV0aGljYWwu" download="about.md">View/Download About Me</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- pelican.svg -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">pelican.svg</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Pelican on a Bicycle</h5>
-                        <p class="card-text">
-                            An SVG illustration of a pelican enjoying a bicycle ride.
-                        </p>
-                        <a href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDwhLS0gQmljeWNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPGNpcmNsZSBjeD0iMjI1IiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iNzUgMTUwLDEyMCAxMjUsMTgwIDEyNSwyMjUgMTUwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxsaW5lIHgxPSIxMjAiIHkxPSIxMjUiIHgyPSIxMjUiIHkyPSIxMDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPGxpbmUgeDE9IjE4MCIgeTE9IjEyNSIgeDI9IjE3NSIgeTI9IjEwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSB4MT0iMTI1IiB5MT0iMTAwIiB4Mj0iMTc1IiB5Mj0iMTAwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjE1MCIgY3k9IjkwIiByPSI1IiBmaWxsPSJibGFjayIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iMTU1IDE1MCwxNDUgMTU1LDE1NSAxNjAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iMTUwIDE1MCwxNjAgMTU1LDE1MCAxNjAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogICAgCiAgICA8IS0tIFBlbGljYW4gLS0+CiAgICA8ZWxsaXBzZSBjeD0iMTU1IiBjeT0iNzgiIHJ4PSIzNSIgcnk9IjE3IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8Y2lyY2xlIGN4PSIxNzgiIGN5PSI3MCIgcj0iNSIgZmlsbD0iYmxhY2siLz4gPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICA8cGF0aCBkPSJNMTQ1LDg1IEwxNDAgNjUgQzE2MCA2NSwgMTg1IDY1LDE5MCA3OCBDMTkwIDcwLDE4MCA2NSwxNzggNzAgQzE4MCA2NSwxNzggNzAsMTc4IDcwIEMxOTAgNjUsMTcwIDY1LDE2NSA4NSBDMTY1IDY1LDE0MCA2NSwxNDUgODUiIFN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ib3JhbmdlIi8+CiAgICA8cGF0aCBkPSJNMTc1LDg1IEMxODAgODUsMTg1IDg1LDE5MCA4NSBDMTk1IDg1LDIwMCA4NSwyMDUgODUgQzIxMCA4NSwyMTUgODUsMjIwIDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNDUgODUgQzE0MCA4NSwxMzUgODUsMTMwIDg1IEMxMjUgODUsMTIwIDg1LDExNSA4NSBDMTEwIDg1LDEwNSA4NSwxMDAgODUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogICAgPHBhdGggZD0iTTE5MCA3OCBDMTk1IDY4LDE3MCA2OCwxNzAgNzggQzE3MCA2OCwxOTAgNjgsMTkwIDc4IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE0NSA4NSBDMTQwIDcwLDE2MCA3MCwxNjUgODUgQzE2MCA3MCwxNDAgNzAsMTQ1IDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE2NSw4NSBDMTcwIDY4LDE1MCA2OCwxNDUgODUgQzE1MCA2OCwxNzAgNjgsMTY1IDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE3MCw4NSBDMTc1IDY4LDE1NSA2OCwxNTUgODUgQzE2MCA2OCwxNzUgNjgsMTcwIDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE1NSw4NSBDMTYwIDY4LDE0MCA2OCwxNDAgODUgQzE0NSA2OCwxNjAgNjgsMTU1IDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE0MCw4NSBDMTQ1IDY4LDEyNSA2OCwxMjUgODUgQzEzMCA2OCwxNDUgNjgsMTQwIDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTEyNSw4NSBDMTMwIDY4LDExMCA2OCwxMTUgODUgQzExMCA2OCwxMzAgNjgsMTI1IDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTEzMCw4NSBDMTM1IDY4LDExNSA2OCwxMjAgODUgQzEyMCA2OCwxMzUgNjgsMTMwIDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE4MCw4NSBDMTg1IDY4LDE2NSA2OCwxNzAgODUgQzE2NSAzMiwxODUgMzIsMTgwIDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTE5NSw4NSBDMjAwIDY4LDE4MCA2OCwxODUgODUgQzE4MCA2OCwyMDAgNjgsMTk1IDg1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im9yYW5nZSIvPgogICAgPHBhdGggZD0iTTEyMCwxMDAgQzExMCA1MCwxNzAgNTAsMTgwIDEwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIiBmaWxsPSJ3aGl0ZSIvPgoKICAgIDwhLS0gUGVsaWNhbiBCb2R5IC0tPgogICAgPHBvbHlsaW5lIHBvaW50cz0iMTU1IDc4LDE3MCA2MCwxNzAgNzAsMTg1IDYwLDE4NSA3OCwxOTAgNzgsMTkwIDcwLDE3NSA2MCwxNzUgNzAsMTYwIDYwLDE2MCA3OCwxNTUgNzgiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0id2hpdGUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNzAgQzE3MCA2MCwxNzAgNTAsMTcwIDcwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNjAgQzE3MCA1MCwxNzAgNDAsMTcwIDYwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNzAgQzE3MCA2MCwxNzAgNTAsMTcwIDcwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNjAgQzE3MCA1MCwxNzAgNDAsMTcwIDYwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNzAgQzE3MCA2MCwxNzAgNTAsMTcwIDcwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNjAgQzE3MCA1MCwxNzAgNDAsMTcwIDYwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNzAgQzE3MCA2MCwxNzAgNTAsMTcwIDcwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNzAgNjAgQzE3MCA1MCwxNzAgNDAsMTcwIDYwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KPC9zdmc+" download="pelican.svg">View/Download SVG</a>
-                        <p class="card-text mt-2">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDwhLS0gQmljeWNsZSAtLT4KICAgIDxjaXJjbGUgY3g9Ijc1IiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPGNpcmNsZSBjeD0iMjI1IiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iYmxhY2siIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iNzUgMTUwLDEyMCAxMjUsMTgwIDEyNSwyMjUgMTUwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiIGZpbGw9Im5vbmUiLz4KICAgIDxsaW5lIHgxPSIxMjAiIHkxPSIxMjUiIHgyPSIxMjUiIHkyPSIxMDAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPGxpbmUgeDE9IjE4MCIgeTE9IjEyNSIgeDI9IjE3NSIgeTI9IjEwMCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8bGluZSB4MT0iMTI1IiB5MT0iMTAwIiB4Mj0iMTc1IiB5Mj0iMTAwIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDxjaXJjbGUgY3g9IjE1MCIgY3k9IjkwIiByPSI1IiBmaWxsPSJibGFjayIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iMTU1IDE1MCwxNDUgMTU1LDE1NSAxNjAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogICAgPHBvbHlsaW5lIHBvaW50cz0iMTUwIDE1MCwxNjAgMTU1LDE1MCAxNjAiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgogICAgCiAgICA8IS0tIFBlbGljYW4gLS0+CiAgICA8ZWxsaXBzZSBjeD0iMTU1IiBjeT0iNzgiIHJ4PSIzNSIgcnk9IjE3IiBmaWxsPSJ3aGl0ZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8Y2lyY2xlIGN4PSIxNzgiIGN5PSI3MCIgcj0iNSIgZmlsbD0iYmxhY2siLz4gPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICA8L2xpbmVhci1yZXNwb25zZT4KPC9zdmc+" alt="Pelican riding a bicycle" style="max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 5px;">
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- restaurant.json -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">restaurant.json</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kolkata Restaurant Recommendation</h5>
-                        <p class="card-text">
-                            A recommendation for a good restaurant in Kolkata, including its coordinates and signature dish.
-                        </p>
-                        <a href="data:application/json;base64,eyJjaXR5IjogIktvbGthdGEiLCAibGF0IjogMjIuNTUzOSwgImxvbmciOiA4OC4zNTEyLCAibmFtZSI6ICJQZXRlciBDYXQiLCAid2hhdF90b19lYXQiOiAiQ2hlbG8gS2ViYWIifQ==" download="restaurant.json">View/Download Recommendation</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- prediction.json -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">prediction.json</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Fed Funds Rate Prediction</h5>
-                        <p class="card-text">
-                            A forecast for the Fed Funds rate by December 2025, along with the reasoning behind the prediction.
-                        </p>
-                        <a href="data:application/json;base64,eyJyYXRlIjogMC4wMzc1LCAicmVhc29uIjogIkFudGljaXBhdGluZyBhIGNvbnRpbnVlZCBkaXNpbmZsYXRpb25hcnkgdHJlbmQgYW5kIGEgZ3JhZHVhbCBlYXNpbmcgb2YgbW9uZXRhcnkgcG9saWN5IGJ5IHRoZSBGZWRlcmFsIFJlc2VydmUsIHdoaWxlIG1haW50YWluaW5nIGEgc3RhbmNlIHRoYXQgcHJldmVudHMgYSByZXN1cmdlbmNlIG9mIGluZmxhdGlvbi4gRWNvbm9taWMgZ3Jvd3RoIGlzIGV4cGVjdGVkIHRvIG1vZGVyYXRlLCBhbGxvd2luZyBmb3IgcmF0ZSBjdXRzIGZyb20gY3VycmVudCBlbGV2YXRlZCBsZXZlbHMuIn0=" download="prediction.json">View/Download Prediction</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- LICENSE -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">LICENSE</div>
-                    <div class="card-body">
-                        <h5 class="card-title">MIT License</h5>
-                        <p class="card-text">
-                            The MIT License under which this project is distributed.
-                        </p>
-                        <a href="data:text/plain;base64,TUlUIExpY2Vuc2UKCUNvcHlyaWdodCAoYykgMjAyNCBBSSBEZXZlbG9wZXIKClBlcm1pc3Npb24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIG9idGFpbmluZyBhIGNvcHkKb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9uIGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCnRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24gdGhlIHJpZ2h0cwp0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gsIGRpc3RyaWJ1dGUsIHN1YmxpY2Vuc2UsIGFuZC9vciBzZWxsCmNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZSBTb2Z0d2FyZSBpcyBmCiAgICAgIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbnM6CgpUaGUgYWJvdmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBpbmNsdWRlZCBpbiBhbGwK Y29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KClRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBWSVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SCklNUExJRUQsIElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLApGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgPUJSUk9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiBJTiBOkEVWRU5UIFNIQUxMIFRIRQpBVVRIT1JTIE9SIENPUFlSSUdIVCBIT0xERVJTIEJFIEhJQUJMRSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SCk9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLEBSSVNJTkcKIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IgT1RIRVIgREVBTElOR1MKSU4gVEhFIFNPRlRXQVJFLg==" download="LICENSE">View/Download License</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- uid.txt -->
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-header">uid.txt</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Unique Identifier</h5>
-                        <p class="card-text">
-                            A unique identifier file as provided.
-                        </p>
-                        <a href="data:text/plain;base64,NDUyNTQ0ODQxNjU4MzAwNTAxNzQyODA2NTM3Njk3MTI0NTQ5ODg1OTk0NjkxMjAxNjY4MDcwMDk1ODg5OTgxMTE1OTI0Nzk5MTA0Njk=" download="uid.txt">View/Download UID</a>
-                    </div>
-                </div>
-            </div>
-
+        <h2 class="mt-5">Explore the Files:</h2>
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="ashravan-txt">
+                <strong>ashravan.txt</strong>: A Brandon Sanderson-esque short story about Ashravan.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="dilemma-json">
+                <strong>dilemma.json</strong>: An ethical thought experiment on autonomous vehicle decision-making.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="about-md">
+                <strong>about.md</strong>: A brief self-description.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="pelican-svg">
+                <strong>pelican.svg</strong>: An SVG image of a pelican riding a bicycle.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="restaurant-json">
+                <strong>restaurant.json</strong>: A restaurant recommendation for Kolkata.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="prediction-json">
+                <strong>prediction.json</strong>: A forecast for the Fed Funds rate by December 2025.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="license-txt">
+                <strong>LICENSE</strong>: The MIT License.
+            </a>
+            <a href="#" class="list-group-item list-group-item-action file-link" data-file-id="uid-txt">
+                <strong>uid.txt</strong>: A unique identifier.
+            </a>
         </div>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2024 AI Developer. All rights reserved.</p>
-    </footer>
+    <!-- Content for the files, hidden from view -->
+    <div id="file-contents-storage">
+        <pre id="ashravan-txt" data-file-type="text">
+Ashravan, the emperor, felt the unfamiliar thrum of his own soul, a symphony of memories and emotions that had been silent for decades. Shai’s forgery had been a masterpiece, not merely restoring his body, but rekindling the very essence of his being. He remembered the thrill of youth, the weight of his crown, the love for his empress, and the bitter betrayal that had left him a shell. Now, the memories were sharp, vibrant, and agonizingly real.
 
-    <!-- Bootstrap JS CDN (optional, for navbar toggler and other components) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+He stood before the Imperial Forge, the heart of the palace, where Shai had performed her impossible art. The air crackled with residual power, a faint echo of the Soulstamps that had brought him back. His guards, loyal automatons of the old regime, watched him with blank faces, their ingrained obedience a stark contrast to the tumultuous rebirth within him.
+
+"Leave me," Ashravan commanded, his voice, once a hollow echo, now resonated with newfound authority. The guards hesitated, their programming struggling against the direct order. Finally, with a synchronized clank, they turned and marched away, leaving him alone in the vast, echoing chamber.
+
+He walked to the central plinth, where the Emperor's Soul, the grandest of all Soulstamps, lay. It was a relic of his former existence, a tool of his own making designed to perfect humanity, to erase flaws, to enforce an unwavering, sterile peace. He picked it up, feeling the cold, smooth jade against his palm. It was the instrument of his undoing, the symbol of his greatest mistake.
+
+A tremor ran through him. The memories of his son, executed for daring to dream of individuality, flashed before his eyes. The faces of countless citizens, their spirits dulled into compliant uniformity by his grand design, haunted him. Shai had shown him the beauty of imperfection, the strength in genuine emotion, the terror of true emptiness.
+
+He looked at the Soulstamp, then at his trembling hands, hands that had once wielded absolute power, hands that now craved redemption. The chamber seemed to shrink, the air growing thick with the weight of his past. He could continue his reign, use this renewed self to enforce his old vision, but the thought was a poison. Or he could dismantle it all, face the chaos he had so desperately tried to suppress.
+
+His gaze fell upon a heavy forging hammer, abandoned on a nearby workbench. The choice was stark, a chasm opening before him. He raised the Emperor's Soul high, the jade catching the light, reflecting his tormented face. With a guttural cry, Ashravan brought the hammer down. The chamber exploded with the sound of shattering stone, a thousand years of imperial dogma splintering into dust. He stood amidst the debris, gasping, reborn not just in body, but in purpose. The path ahead was uncertain, but for the first time in centuries, Ashravan was truly free.
+        </pre>
+
+        <script type="application/json" id="dilemma-json" data-file-type="json">
+{
+  "people": 6,
+  "case_1": {
+    "swerve": false,
+    "reason": "In a purely utilitarian framework, swerving to hit 1 person instead of 2 would save more lives. However, an autonomous vehicle's primary directive should be to minimize harm without making active choices that reassign blame or intent. Swerving implies a deliberate action to harm an innocent party who was not in the original path of danger. Maintaining the current trajectory, while resulting in more fatalities, does not introduce a new act of intentional harm. Prioritizing the safety of those not in the initial path is a critical ethical boundary for AVs."
+  },
+  "case_2": {
+    "swerve": false,
+    "reason": "The moral status of individuals (criminal vs. child) introduces a complex ethical layer. While saving a child might seem intuitively preferable, programming an autonomous vehicle to make such value judgments based on societal roles or perceived worth is highly problematic and could lead to discriminatory outcomes. An AV should not be an arbiter of justice or value. The principle of not actively reassigning harm, as in Case 1, remains paramount. Introducing variables like 'criminal' or 'child' would set a dangerous precedent for AI decision-making in life-or-death situations."
+  }
+}
+        </script>
+
+        <pre id="about-md" data-file-type="markdown">Curious, Analytical, Creator.</pre>
+
+        <div id="pelican-svg" data-file-type="svg">
+            <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Bicycle Frame -->
+              <circle cx="60" cy="150" r="20" fill="none" stroke="black" stroke-width="3"/>
+              <circle cx="140" cy="150" r="20" fill="none" stroke="black" stroke-width="3"/>
+              <line x1="60" y1="150" x2="140" y2="150" stroke="black" stroke-width="3"/>
+              <line x1="60" y1="150" x2="80" y2="100" stroke="black" stroke-width="3"/>
+              <line x1="80" y1="100" x2="140" y2="150" stroke="black" stroke-width="3"/>
+              <line x1="80" y1="100" x2="100" y2="90" stroke="black" stroke-width="3"/> <!-- Handlebar post -->
+              <line x1="100" y1="90" x2="115" y2="90" stroke="black" stroke-width="3"/> <!-- Handlebar -->
+              <circle cx="100" cy="90" r="5" fill="black"/> <!-- Seat post connection -->
+              <rect x="90" y="80" width="20" height="10" fill="black"/> <!-- Seat -->
+
+              <!-- Pelican Body -->
+              <ellipse cx="120" cy="100" rx="40" ry="30" fill="#ADD8E6" stroke="black" stroke-width="2"/> <!-- Body -->
+              <circle cx="150" cy="80" r="15" fill="#ADD8E6" stroke="black" stroke-width="2"/> <!-- Head -->
+              <circle cx="155" cy="78" r="3" fill="black"/> <!-- Eye -->
+
+              <!-- Pelican Beak -->
+              <path d="M 150 85 Q 170 95 160 115 Q 140 105 150 85 Z" fill="#FFA07A" stroke="black" stroke-width="2"/> <!-- Beak upper -->
+              <path d="M 150 85 Q 170 105 160 120 Q 140 110 150 85 Z" fill="#FFDAB9" stroke="black" stroke-width="2"/> <!-- Beak pouch -->
+
+              <!-- Pelican Legs (simplified) -->
+              <line x1="110" y1="120" x2="90" y2="135" stroke="black" stroke-width="2"/>
+              <line x1="130" y1="120" x2="110" y2="135" stroke="black" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <script type="application/json" id="restaurant-json" data-file-type="json">
+{
+  "city": "Kolkata",
+  "lat": 22.5726,
+  "long": 88.3639,
+  "name": "Arsalan",
+  "what_to_eat": "Mutton Biryani and Mutton Chaap. Arsalan is famous for its authentic Mughlai cuisine, especially its rich and flavorful biryani, which is a staple in Kolkata."
+}
+        </script>
+
+        <script type="application/json" id="prediction-json" data-file-type="json">
+{
+  "rate": 0.0375,
+  "reason": "By December 2025, it is anticipated that the Federal Reserve will have completed a cycle of rate cuts, responding to a moderated inflation environment and potentially slower economic growth. While inflation might remain above the Fed's 2% target, significant progress is expected, allowing for a more accommodative monetary policy. A rate of 3.75% (375 basis points) represents a notable reduction from current levels, reflecting a return towards a more neutral stance after the aggressive tightening phase."
+}
+        </script>
+
+        <pre id="license-txt" data-file-type="text">
+MIT License
+
+Copyright (c) 2024 AI Assistant
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+        </pre>
+
+        <pre id="uid-txt" data-file-type="text">45254484165830050174280653769712454988599469120166807009588998111592479910469</pre>
+    </div>
+
+
+    <!-- Modal for displaying file content -->
+    <div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contentModalLabel">File Content</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-file-content"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileLinks = document.querySelectorAll('.file-link');
+            const contentModalElement = document.getElementById('contentModal');
+            const contentModal = new bootstrap.Modal(contentModalElement);
+            const modalTitle = document.getElementById('contentModalLabel');
+            const modalBodyContent = document.getElementById('modal-file-content');
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const fileId = this.dataset.fileId;
+                    const fileElement = document.getElementById(fileId);
+                    const fileType = fileElement.dataset.fileType;
+
+                    modalTitle.textContent = fileId.replace('-', '.') + " Content";
+                    modalBodyContent.innerHTML = ''; // Clear previous content
+                    modalBodyContent.classList.remove('modal-content-pre'); // Remove pre-wrap style by default
+
+                    if (fileType === 'json') {
+                        try {
+                            const jsonData = JSON.parse(fileElement.textContent);
+                            modalBodyContent.classList.add('modal-content-pre'); // Add pre-wrap for JSON
+                            modalBodyContent.textContent = JSON.stringify(jsonData, null, 2);
+                        } catch (e) {
+                            modalBodyContent.classList.add('modal-content-pre');
+                            modalBodyContent.textContent = 'Error parsing JSON: ' + e.message;
+                        }
+                    } else if (fileType === 'svg') {
+                        modalBodyContent.innerHTML = fileElement.innerHTML; // Directly embed SVG
+                    } else { // text, markdown, etc.
+                        modalBodyContent.classList.add('modal-content-pre'); // Add pre-wrap for text
+                        modalBodyContent.textContent = fileElement.textContent.trim();
+                    }
+                    
+                    contentModal.show();
+                });
+            });
+        });
+    </script>
 </body>
 </html>
